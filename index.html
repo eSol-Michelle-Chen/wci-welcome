@@ -7,7 +7,7 @@
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 const element = document.querySelector("#target")
-                const audio = document.querySelector("#music")
+                const audio = document.querySelector("#sound")
                 element.addEventListener("targetFound", (event) => {
                     console.log("target found")
                     audio.play()
@@ -30,7 +30,7 @@
             device-orientation-permission-ui="enabled: false"
         >
             <a-assets>
-                <audio id="music" src="./music.mp3" preload="auto"></audio>
+                <audio id="sound" src="./music.mp3" preload="auto"></audio>
             </a-assets>
             <a-camera
                 position="0 0 0"
@@ -40,11 +40,6 @@
             ></a-camera>
 
             <a-entity id="target" mindar-image-target="targetIndex: 0">
-                <a-entity
-                    id="audio"
-                    sound="src: #music; "
-                    position="0 0 0"
-                ></a-entity>
             </a-entity>
         </a-scene>
     </body>
