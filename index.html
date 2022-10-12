@@ -60,7 +60,10 @@
             device-orientation-permission-ui="enabled: false"
         >
             <a-assets>
-                <img id="buttonImg" src="./playButton.jpg" />
+                <img
+                    id="buttonImg"
+                    src="https://cdn-icons-png.flaticon.com/512/17/17550.png"
+                />
                 <audio id="sound" src="./music2.mp3" preload="auto"></audio>
             </a-assets>
             <a-camera
@@ -76,6 +79,7 @@
                     src="#buttonImg"
                     class="clickable"
                     position="0 0 0"
+                    height="0.552"
                     scale="0.5 0.5 0.5"
                     onclick="play"
                     visible="true"
