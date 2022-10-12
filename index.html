@@ -1,26 +1,56 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- MindAR and AFrame-->
         <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.5/dist/mindar-image.prod.js"></script>
         <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.5/dist/mindar-image-aframe.prod.js"></script>
+
+        <!-- AFrame GUI - Documentation: https://www.npmjs.com/package/aframe-gui -->
+
+        <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
+
+        <!-- Play/pause audio when target is found/lost-->
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 const element = document.querySelector("#target")
                 const audio = document.querySelector("#sound")
-                element.addEventListener("targetFound", (event) => {
-                    console.log("target found")
-                    audio.play()
-                })
+                // element.addEventListener("targetFound", (event) => {
+                //     console.log("target found")
+                //     audio.play()
+                // })
                 // detect target lost
-                element.addEventListener("targetLost", (event) => {
-                    console.log("target lost")
-                    audio.pause()
+                // element.addEventListener("targetLost", (event) => {
+                //     console.log("target lost")
+                //     audio.pause()
+                // })
+                // detect click event
+
+                audio.onended = function () {
+                    playButton.setAttribute("visible", true)
+                }
+                const playButton = document.querySelector("#play-button")
+                playButton.addEventListener("click", (event) => {
+                    playButton.setAttribute("visible", false)
+
+                    audio.play()
+                    console.log("Pressed the play button")
                 })
             })
+            // function play() {
+            //     console.log("Pressed the play button")
+            // }
         </script>
+        <script></script>
     </head>
     <body>
+        <!-- <script> -->
+        <!-- // function play() {
+            //     console.log("clicked")
+            // }
+            // const playButton = document.getElementById("target")
+            // playButton.addEventListener("click", play) -->
+        <!-- </script> -->
         <a-scene
             mindar-image="imageTargetSrc: ./targets.mind;"
             embedded
@@ -30,16 +60,26 @@
             device-orientation-permission-ui="enabled: false"
         >
             <a-assets>
+                <img id="buttonImg" src="./playButton.jpg" />
                 <audio id="sound" src="./music2.mp3" preload="auto"></audio>
             </a-assets>
             <a-camera
                 position="0 0 0"
                 look-controls="enabled: false"
                 cursor="fuse: false; rayOrigin: mouse;"
-                raycaster="far: 1.1.5; objects: .clickable"
+                raycaster="far: ${customFields.libVersion}; objects: .clickable"
             ></a-camera>
 
             <a-entity id="target" mindar-image-target="targetIndex: 0">
+                <a-image
+                    id="play-button"
+                    src="#buttonImg"
+                    class="clickable"
+                    position="0 0 0"
+                    scale="0.5 0.5 0.5"
+                    onclick="play"
+                    visible="true"
+                ></a-image>
             </a-entity>
         </a-scene>
     </body>
