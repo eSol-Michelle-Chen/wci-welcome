@@ -31,9 +31,9 @@
                 }
                 const playButton = document.querySelector("#play-button")
                 playButton.addEventListener("click", (event) => {
+                    audio.play()
                     playButton.setAttribute("visible", false)
 
-                    audio.play()
                     console.log("Pressed the play button")
                 })
             })
