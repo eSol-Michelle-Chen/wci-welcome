@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.5/dist/mindar-image.prod.js"></script>
+        <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.5/dist/mindar-image-aframe.prod.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const element = document.querySelector("#target")
+                const audio = document.querySelector("#music")
+                element.addEventListener("targetFound", (event) => {
+                    console.log("target found")
+                    audio.play()
+                })
+                // detect target lost
+                element.addEventListener("targetLost", (event) => {
+                    console.log("target lost")
+                    audio.pause()
+                })
+            })
+        </script>
+    </head>
+    <body>
+        <a-scene
+            mindar-image="imageTargetSrc: ./targets.mind;"
+            embedded
+            color-space="sRGB"
+            renderer="colorManagement: true, physicallyCorrectLights"
+            vr-mode-ui="enabled: false"
+            device-orientation-permission-ui="enabled: false"
+        >
+            <a-assets>
+                <audio id="music" src="./music.mp3" preload="auto"></audio>
+            </a-assets>
+            <a-camera
+                position="0 0 0"
+                look-controls="enabled: false"
+                cursor="fuse: false; rayOrigin: mouse;"
+                raycaster="far: 1.1.5; objects: .clickable"
+            ></a-camera>
+
+            <a-entity id="target" mindar-image-target="targetIndex: 0">
+                <a-entity
+                    id="audio"
+                    sound="src: #music; "
+                    position="0 0 0"
+                ></a-entity>
+            </a-entity>
+        </a-scene>
+    </body>
+</html>
